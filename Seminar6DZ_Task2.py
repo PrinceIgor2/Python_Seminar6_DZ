@@ -1,37 +1,31 @@
 # 2- Найти произведение пар чисел в списке. Парой считаем первый и последний элемент, второй и предпоследний и т.д.
 
-def mult_lst(lst):
-    l = len(lst)//2 + 1 if len(lst) % 2 != 0 else len(lst)//2
-    new_lst = [lst[i]*lst[len(lst)-i-1] for i in range(l)]
-    print(new_lst)
+import math, random
 
-lst = [2, 3, 4, 5, 6]
-mult_lst(lst)
-lst = list(map(int, input("Введите числа через пробел:\n").split()))
-mult_lst(lst)
+def user_min_max_number(input_string: str, min_num: int = None, max_num: int = None) -> int:
+    """
+    Спрашивает у пользователя число в диапзоне от  min_num до  mах_num:
+    Args:
+    input_string - предложение ввода
+    Returns:
+    int - число
+    """
+    while True:
+        try:
+            num = int(input(input_string))
+            if min_num and num < min_num:
+                print(f'Введите больше {min_num}')
+                continue
+            if max_num and num > max_num:
+                print(f'Введите меньше, чем {max_num}')
+                continue
+            return num
+        except ValueError:
+            print('Похоже это не число, попробуте еще раз')
 
+nums = [random.randint(0, 20) for _ in range(user_min_max_number('Введите количество элементов списка: '))]
+print(f'Исходный список -> {nums}')
+mult_list = list(map(lambda i: (nums[i]*nums[-(i+1)]), [i for i in range(math.ceil(len(nums)/2))]))
+print(f'Произведение пар элементов -> {mult_list}')
 
-
-
-
-
-# from random import randint
-
-
-# number = int(input('Введите размер списка '))
-# list = []
-# list2 = []
-
-# for i in range(number):
-#     list.append(randint(0, 9))
-
-# for i in range(len(list)):
-#     while i < len(list)/2 and number > len(list)/2:
-#         number = number - 1
-#         a = list[i] * list[number]
-#         list2.append(a)
-#         i += 1
-
-# print(list)
-# print(list2)
 
